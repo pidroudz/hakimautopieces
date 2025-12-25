@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakim Auto Pieces - لوحة الإدارة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS لنظام الإدارة */
+        :root {
+            --primary: #e63946;
+            --secondary: #1d3557;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --border: #dee2e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            color: var(--dark);
+            direction: rtl;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--secondary) 0%, #457b9d 100%);
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-box h2 {
+            color: var(--secondary);
+            margin-bottom: 30px;
+        }
+
+        .login-box i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: #d62839;
+            transform: translateY(-2px);
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .admin-container {
+            display: none;
+        }
+
+        /* لوحة التحكم */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        /* الشريط الجانبي */
+        .sidebar {
+            background: var(--secondary);
+            color: white;
+            padding: 20px 0;
+        }
+
+        .logo {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo h2 {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            padding: 20px 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: 0.3s;
+            border-right: 3px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-right-color: var(--primary);
+        }
+
+        .nav-link i {
+            margin-left: 10px;
+            width: 20px;
+        }
+
+        /* المحتوى الرئيسي */
+        .main-content {
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* بطاقات الإحصائيات */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: #6c757d;
+        }
+
+        /* جداول */
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .table-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-header h3 {
+            color: var(--secondary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: right;
+            color: var(--dark);
+            border-bottom: 2px solid var(--border);
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* نموذج المنتج */
+        .product-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* وسائط متجاوبة */
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-btns {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شاشة تسجيل الدخول -->
+    <div class="login-container" id="loginScreen">
+        <div class="login-box">
+            <i class="fas fa-car"></i>
+            <h2>Hakim Auto Pieces</h2>
+            <p>لوحة التحكم الإدارية</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">اسم المستخدم</label>
+                    <input type="text" id="username" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> دخول
+                </button>
+            </form>
+            
+            <div class="alert alert-danger" id="loginError">
+                اسم المستخدم أو كلمة المرور غير صحيحة!
+            </div>
+            
+            <div style="margin-top: 20px; color: #666; font-size: 0.9rem;">
+                <p><strong>بيانات الدخول الافتراضية:</strong></p>
+                <p>اسم المستخدم: <code>admin</code></p>
+                <p>كلمة المرور: <code>123456</code></p>
+                <p style="color: var(--danger); margin-top: 10px;">⚠️ غيّر هذه البيانات بعد الدخول!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- لوحة التحكم (تظهر بعد الدخول) -->
+    <div class="admin-container" id="adminPanel">
+        <div class="dashboard">
+            <!-- الشريط الجانبي -->
+            <div class="sidebar">
+                <div class="logo">
+                    <h2><i class="fas fa-car"></i> Hakim Auto</h2>
+                    <p>لوحة التحكم</p>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="#" class="nav-link active" data-page="dashboard">
+                        <i class="fas fa-tachometer-alt"></i> لوحة التحكم
+                    </a>
+                    <a href="#" class="nav-link" data-page="products">
+                        <i class="fas fa-box"></i> إدارة المنتجات
+                    </a>
+                    <a href="#" class="nav-link" data-page="add-product">
+                        <i class="fas fa-plus-circle"></i> إضافة منتج جديد
+                    </a>
+                    <a href="#" class="nav-link" data-page="orders">
+                        <i class="fas fa-shopping-cart"></i> الطلبات
+                    </a>
+                    <a href="#" class="nav-link" data-page="settings">
+                        <i class="fas fa-cog"></i> الإعدادات
+                    </a>
+                    <a href="#" class="nav-link" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                    </a>
+                </nav>
+            </div>
+
+            <!-- المحتوى الرئيسي -->
+            <div class="main-content">
+                <!-- لوحة التحكم الرئيسية -->
+                <div class="page active" id="dashboardPage">
+                    <div class="header">
+                        <h1><i class="fas fa-tachometer-alt"></i> لوحة التحكم</h1>
+                        <div id="currentDate"></div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-box"></i>
+                            <h3 id="totalProducts">0</h3>
+                            <p>إجمالي المنتجات</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3 id="totalOrders">0</h3>
+                            <p>الطلبات النشطة</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <h3 id="totalRevenue">0 ر.س</h3>
+                            <p>إجمالي المبيعات</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <h3 id="totalCustomers">0</h3>
+                            <p>عملاء مسجلين</p>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3><i class="fas fa-clock"></i> أحدث المنتجات</h3>
+                        </div>
+                        <table id="recentProductsTable">
+                            <thead>
+                                <tr>
+                                    <th>الصورة</th>
+                                    <th>اسم المنتج</th>
+                                    <th>السعر</th>
+                                    <th>القسم</th>
+                                    <th>الحالة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentProductsBody">
+                                <!-- سيتم تعبئتها بالبيانات -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- صفحة إدارة المنتجات -->
+                <div class="page" id="productsPage">
+                    <div class="header">
+                        <h1><i class="fas fa-box"></i> إدارة المنتجات</h1>
+                        <button class="btn btn-success" data-page="add-product">
+                            <i class="fas fa-plus"></i> إضافة منتج جديد
+                        </button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h3>جميع المنتجات</h3>
+                            <input type="text" id="productSearch" class="form-control" placeholder="ابحث عن منتج..." style="width: 250px;">
+                        </div>
+                        <table id="productsTable">
+                            <thead>
+                                <tr>
+                                    <th>الصورة</th>
+                                    <th>اسم المنتج</th>
+                                    <th>السعر</th>
+                                    <th>القسم</th>
+                                    <th>الماركة</th>
+                                    <th>المخزون</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody">
+                                <!-- سيتم تعبئتها بالبيانات -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- صفحة إضافة منتج جديد -->
+                <div class="page" id="addProductPage">
+                    <div class="header">
+                        <h1><i class="fas fa-plus-circle"></i> إضافة منتج جديد</h1>
+                        <button class="btn" data-page="products">
+                            <i class="fas fa-arrow-right"></i> العودة للمنتجات
+                        </button>
+                    </div>
+                    
+                    <div class="product-form">
+                        <form id="addProductForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="productName">اسم المنتج *</label>
+                                    <input type="text" id="productName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="productPrice">السعر (ر.س) *</label>
+                                    <input type="number" id="productPrice" class="form-control" step="0.01" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="productCategory">القسم *</label>
+                                    <select id="productCategory" class="form-control" required>
+                                        <option value="">اختر القسم</option>
+                                        <option value="engine">محرك ونظام نقل</option>
+                                        <option value="brakes">فرامل وعجلات</option>
+                                        <option value="electrical">كهرباء وإلكترونيات</option>
+                                        <option value="suspension">تعليق وتوجيه</option>
+                                        <option value="body">هيكل وتجهيزات</option>
+                                        <option value="maintenance">صيانة وإصلاح</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="productBrand">الماركة *</label>
+                                    <select id="productBrand" class="form-control" required>
+                                        <option value="">اختر الماركة</option>
+                                        <option value="toyota">تويوتا</option>
+                                        <option value="nissan">نيسان</option>
+                                        <option value="hyundai">هيونداي</option>
+                                        <option value="kia">كيا</option>
+                                        <option value="bmw">بي إم دبليو</option>
+                                        <option value="mercedes">مرسيدس</option>
+                                        <option value="chevrolet">شفرولية</option>
+                                        <option value="ford">فورد</option>
+                                        <option value="other">أخرى</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="productDescription">وصف المنتج *</label>
+                                <textarea id="productDescription" class="form-control" required></textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="productImage">رابط صورة المنتج *</label>
+                                    <input type="url" id="productImage" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="productStock">الكمية في المخزون *</label>
+                                    <input type="number" id="productStock" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="productFeatured">
+                                <label for="productFeatured">عرض المنتج في الصفحة الرئيسية (مميز)</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="productOnSale">
+                                <label for="productOnSale">المنتج في عرض خاص</label>
+                            </div>
+                            
+                            <div class="form-group" style="margin-top: 30px;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> حفظ المنتج
+                                </button>
+                                <button type="button" id="cancelAdd" class="btn btn-danger">
+                                    <i class="fas fa-times"></i> إلغاء
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- صفحة الطلبات -->
+                <div class="page" id="ordersPage">
+                    <div class="header">
+                        <h1><i class="fas fa-shopping-cart"></i> إدارة الطلبات</h1>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table id="ordersTable">
+                            <thead>
+                                <tr>
+                                    <th>رقم الطلب</th>
+                                    <th>العميل</th>
+                                    <th>المبلغ</th>
+                                    <th>الحالة</th>
+                                    <th>التاريخ</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody">
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 40px;">
+                                        <i class="fas fa-shopping-cart" style="font-size: 3rem; color: #ddd; margin-bottom: 15px;"></i>
+                                        <h3 style="color: #666;">لا توجد طلبات بعد</h3>
+                                        <p>ستظهر الطلبات هنا عندما يقوم العملاء بالشراء</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- صفحة الإعدادات -->
+                <div class="page" id="settingsPage">
+                    <div class="header">
+                        <h1><i class="fas fa-cog"></i> إعدادات المتجر</h1>
+                    </div>
+                    
+                    <div class="product-form">
+                        <form id="settingsForm">
+                            <div class="form-group">
+                                <label for="storeName">اسم المتجر</label>
+                                <input type="text" id="storeName" class="form-control" value="Hakim Auto Pieces">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="storeDescription">وصف المتجر</label>
+                                <textarea id="storeDescription" class="form-control">متخصصون في توريد قطع غيار السيارات الأصلية بجودة عالية وأسعار تنافسية</textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="storePhone">رقم الهاتف</label>
+                                    <input type="text" id="storePhone" class="form-control" value="0123456789">
+                                </div>
+                                <div class="form-group">
+                                    <label for="storeEmail">البريد الإلكتروني</label>
+                                    <input type="email" id="storeEmail" class="form-control" value="info@hakimautopieces.com">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="storeAddress">العنوان</label>
+                                    <input type="text" id="storeAddress" class="form-control" value="الرياض، السعودية">
+                                </div>
+                                <div class="form-group">
+                                    <label for="storeHours">ساعات العمل</label>
+                                    <input type="text" id="storeHours" class="form-control" value="9 ص - 9 م">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="adminPassword">كلمة مرور جديدة للمدير</label>
+                                <input type="password" id="adminPassword" class="form-control" placeholder="اتركه فارغاً إذا لم ترد التغيير">
+                            </div>
+                            
+                            <div class="form-group" style="margin-top: 30px;">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> حفظ الإعدادات
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // بيانات النظام الإداري
+        const adminData = {
+            username: "admin",
+            password: "123456",
+            isLoggedIn: localStorage.getItem('hakim_admin_loggedin') === 'true',
+            products: JSON.parse(localStorage.getItem('hakim_products')) || [],
+            orders: JSON.parse(localStorage.getItem('hakim_orders')) || [],
+            settings: JSON.parse(localStorage.getItem('hakim_settings')) || {
+                storeName: "Hakim Auto Pieces",
+                storeDescription: "متخصصون في توريد قطع غيار السيارات الأصلية",
+                storePhone: "0123456789",
+                storeEmail: "info@hakimautopieces.com",
+                storeAddress: "الرياض، السعودية",
+                storeHours: "9 ص - 9 م"
+            }
+        };
+
+        // تهيئة النظام عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            initAdminSystem();
+        });
+
+        function initAdminSystem() {
+            // التحقق من حالة تسجيل الدخول
+            if (adminData.isLoggedIn) {
+                showAdminPanel();
+            } else {
+                showLoginScreen();
+            }
+            
+            // تحديث التاريخ
+            updateCurrentDate();
+            
+            // إعداد الأحداث
+            setupAdminEvents();
+            
+            // تحميل البيانات
+            if (adminData.isLoggedIn) {
+                loadDashboardData();
+                loadProductsTable();
+            }
+        }
+
+        function setupAdminEvents() {
+            // تسجيل الدخول
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                if (username === adminData.username && password === adminData.password) {
+                    adminData.isLoggedIn = true;
+                    localStorage.setItem('hakim_admin_loggedin', 'true');
+                    showAdminPanel();
+                    loadDashboardData();
+                    loadProductsTable();
+                } else {
+                    document.getElementById('loginError').style.display = 'block';
+                }
+            });
+            
+            // تسجيل الخروج
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                adminData.isLoggedIn = false;
+                localStorage.removeItem('hakim_admin_loggedin');
+                showLoginScreen();
+            });
+            
+            // التنقل بين الصفحات
+            document.querySelectorAll('.nav-link, button[data-page]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('data-page') || 
+                                this.closest('.nav-link').getAttribute('data-page');
+                    
+                    if (page) {
+                        showPage(page);
+                        
+                        // تحديث القائمة النشطة
+                        document.querySelectorAll('.nav-link').forEach(l => {
+                            l.classList.remove('active');
+                        });
+                        document.querySelector(`.nav-link[data-page="${page}"]`).classList.add('active');
+                    }
+                });
+            });
+            
+            // إضافة منتج جديد
+            document.getElementById('addProductForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addNewProduct();
+            });
+            
+            // إلغاء إضافة منتج
+            document.getElementById('cancelAdd').addEventListener('click', function() {
+                document.getElementById('addProductForm').reset();
+                showPage('products');
+            });
+            
+            // حفظ الإعدادات
+            document.getElementById('settingsForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveSettings();
+            });
+            
+            // البحث في المنتجات
+            document.getElementById('productSearch').addEventListener('input', function() {
+                searchProducts(this.value);
+            });
+        }
+
+        function showLoginScreen() {
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('loginForm').reset();
+        }
+
+        function showAdminPanel() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            showPage('dashboard');
+        }
+
+        function showPage(pageName) {
+            // إخفاء جميع الصفحات
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // إظهار الصفحة المطلوبة
+            document.getElementById(pageName + 'Page').classList.add('active');
+            
+            // تحميل بيانات الصفحة إذا لزم الأمر
+            if (pageName === 'products') {
+                loadProductsTable();
+            } else if (pageName === 'dashboard') {
+                loadDashboardData();
+            } else if (pageName === 'settings') {
+                loadSettingsForm();
+            }
+            
+            // التمرير لأعلى الصفحة
+            window.scrollTo(0, 0);
+        }
+
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            const dateStr = now.toLocaleDateString('ar-SA', options);
+            document.getElementById('currentDate').textContent = dateStr;
+        }
+
+        function loadDashboardData() {
+            // عدد المنتجات
+            document.getElementById('totalProducts').textContent = adminData.products.length;
+            
+            // عدد الطلبات
+            document.getElementById('totalOrders').textContent = adminData.orders.length;
+            
+            // إجمالي المبيعات
+            const revenue = adminData.orders.reduce((total, order) => total + order.total, 0);
+            document.getElementById('totalRevenue').textContent = revenue.toFixed(2) + ' ر.س';
+            
+            // عدد العملاء
+            const customers = [...new Set(adminData.orders.map(order => order.customer))].length;
+            document.getElementById('totalCustomers').textContent = customers;
+            
+            // أحدث المنتجات (آخر 5)
+            const recentProducts = [...adminData.products].slice(0, 5);
+            const tableBody = document.getElementById('recentProductsBody');
+            tableBody.innerHTML = '';
+            
+            if (recentProducts.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 20px; color: #666;">
+                            لا توجد منتجات بعد
+                        </td>
+                    </tr>
+                `;
+            } else {
+                recentProducts.forEach(product => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><img src="${product.image}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;"></td>
+                        <td>${product.name}</td>
+                        <td>${product.price.toFixed(2)} ر.س</td>
+                        <td>${getCategoryName(product.category)}</td>
+                        <td><span style="color: ${product.stock > 0 ? '#2ecc71' : '#e74c3c'}">${product.stock > 0 ? 'متوفر' : 'نفذ'}</span></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                'engine': 'محرك',
+                'brakes': 'فرامل',
+                'electrical': 'كهرباء',
+                'suspension': 'تعليق',
+                'body': 'هيكل',
+                'maintenance': 'صيانة'
+            };
+            return categories[category] || category;
+        }
+
+        function getBrandName(brand) {
+            const brands = {
+                'toyota': 'تويوتا',
+                'nissan': 'نيسان',
+                'hyundai': 'هيونداي',
+                'kia': 'كيا',
+                'bmw': 'بي إم دبليو',
+                'mercedes': 'مرسيدس',
+                'chevrolet': 'شفرولية',
+                'ford': 'فورد',
+                'other': 'أخرى'
+            };
+            return brands[brand] || brand;
+        }
+
+        function loadProductsTable() {
+            const tableBody = document.getElementById('productsTableBody');
+            tableBody.innerHTML = '';
+            
+            if (adminData.products.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 40px;">
+                            <i class="fas fa-box-open" style="font-size: 3rem; color: #ddd; margin-bottom: 15px;"></i>
+                            <h3 style="color: #666;">لا توجد منتجات بعد</h3>
+                            <p>ابدأ بإضافة منتجات إلى متجرك</p>
+                            <button class="btn btn-success" data-page="add-product" style="margin-top: 15px;">
+                                <i class="fas fa-plus"></i> إضافة أول منتج
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                
+                // إضافة حدث للزر
+                const btn = tableBody.querySelector('button');
+                btn.addEventListener('click', function() {
+                    showPage('add-product');
+                });
+            } else {
+                adminData.products.forEach((product, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><img src="${product.image}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;"></td>
+                        <td>${product.name}</td>
+                        <td>${product.price.toFixed(2)} ر.س</td>
+                        <td>${getCategoryName(product.category)}</td>
+                        <td>${getBrandName(product.brand)}</td>
+                        <td>${product.stock}</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="btn btn-warning btn-sm edit-btn" data-index="${index}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm delete-btn" data-index="${index}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+                
+                // إضافة أحداث لأزرار التعديل والحذف
+                document.querySelectorAll('.edit-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        editProduct(parseInt(this.dataset.index));
+                    });
+                });
+                
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        deleteProduct(parseInt(this.dataset.index));
+                    });
+                });
+            }
+        }
+
+        function searchProducts(query) {
+            const rows = document.querySelectorAll('#productsTableBody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query.toLowerCase()) ? '' : 'none';
+            });
+        }
+
+        function addNewProduct() {
+            const newProduct = {
+                id: Date.now(), // معرف فريد
+                name: document.getElementById('productName').value,
+                description: document.getElementById('productDescription').value,
+                price: parseFloat(document.getElementById('productPrice').value),
+                category: document.getElementById('productCategory').value,
+                brand: document.getElementById('productBrand').value,
+                image: document.getElementById('productImage').value,
+                stock: parseInt(document.getElementById('productStock').value),
+                featured: document.getElementById('productFeatured').checked,
+                onSale: document.getElementById('productOnSale').checked,
+                date: new Date().toISOString(),
+                tags: []
+            };
+            
+            // إضافة تاجات حسب الخيارات
+            if (newProduct.onSale) newProduct.tags.push('sale');
+            if (newProduct.featured) newProduct.tags.push('featured');
+            if (new Date().getTime() - new Date(newProduct.date).getTime() < 7 * 24 * 60 * 60 * 1000) {
+                newProduct.tags.push('new');
+            }
+            
+            adminData.products.unshift(newProduct); // إضافة في البداية
+            localStorage.setItem('hakim_products', JSON.stringify(adminData.products));
+            
+            // إظهار رسالة نجاح
+            showAlert('تم إضافة المنتج بنجاح!', 'success');
+            
+            // إعادة تعيين النموذج
+            document.getElementById('addProductForm').reset();
+            
+            // تحديث البيانات
+            loadDashboardData();
+            loadProductsTable();
+            
+            // الرجوع لصفحة المنتجات
+            showPage('products');
+        }
+
+        function editProduct(index) {
+            const product = adminData.products[index];
+            if (!product) return;
+            
+            // ملء النموذج ببيانات المنتج
+            document.getElementById('productName').value = product.name;
+            document.getElementById('productDescription').value = product.description;
+            document.getElementById('productPrice').value = product.price;
+            document.getElementById('productCategory').value = product.category;
+            document.getElementById('productBrand').value = product.brand;
+            document.getElementById('productImage').value = product.image;
+            document.getElementById('productStock').value = product.stock;
+            document.getElementById('productFeatured').checked = product.featured;
+            document.getElementById('productOnSale').checked = product.tags?.includes('sale');
+            
+            // تغيير النموذج لحفظ التعديلات
+            const form = document.getElementById('addProductForm');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                updateProduct(index);
+            };
+            
+            submitBtn.innerHTML = '<i class="fas fa-save"></i> تحديث المنتج';
+            submitBtn.dataset.editIndex = index;
+            
+            // تغيير العنوان
+            document.querySelector('#addProductPage h1').innerHTML = '<i class="fas fa-edit"></i> تعديل المنتج';
+            
+            // الذهاب لصفحة إضافة المنتج (للتعديل)
+            showPage('add-product');
+        }
+
+        function updateProduct(index) {
+            adminData.products[index] = {
+                ...adminData.products[index],
+                name: document.getElementById('productName').value,
+                description: document.getElementById('productDescription').value,
+                price: parseFloat(document.getElementById('productPrice').value),
+                category: document.getElementById('productCategory').value,
+                brand: document.getElementById('productBrand').value,
+                image: document.getElementById('productImage').value,
+                stock: parseInt(document.getElementById('productStock').value),
+                featured: document.getElementById('productFeatured').checked,
+                onSale: document.getElementById('productOnSale').checked
+            };
+            
+            // تحديث التاجات
+            adminData.products[index].tags = [];
+            if (adminData.products[index].onSale) adminData.products[index].tags.push('sale');
+            if (adminData.products[index].featured) adminData.products[index].tags.push('featured');
+            
+            localStorage.setItem('hakim_products', JSON.stringify(adminData.products));
+            
+            showAlert('تم تحديث المنتج بنجاح!', 'success');
+            
+            // إعادة تعيين النموذج
+            document.getElementById('addProductForm').reset();
+            
+            // إعادة النموذج لحالته الأصلية
+            const form = document.getElementById('addProductForm');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                addNewProduct();
+            };
+            
+            submitBtn.innerHTML = '<i class="fas fa-save"></i> حفظ المنتج';
+            delete submitBtn.dataset.editIndex;
+            
+            // إعادة العنوان
+            document.querySelector('#addProductPage h1').innerHTML = '<i class="fas fa-plus-circle"></i> إضافة منتج جديد';
+            
+            // تحديث البيانات
+            loadDashboardData();
+            loadProductsTable();
+            
+            // الرجوع لصفحة المنتجات
+            showPage('products');
+        }
+
+        function deleteProduct(index) {
+            if (confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
+                adminData.products.splice(index, 1);
+                localStorage.setItem('hakim_products', JSON.stringify(adminData.products));
+                
+                showAlert('تم حذف المنتج بنجاح!', 'success');
+                
+                loadDashboardData();
+                loadProductsTable();
+            }
+        }
+
+        function loadSettingsForm() {
+            document.getElementById('storeName').value = adminData.settings.storeName;
+            document.getElementById('storeDescription').value = adminData.settings.storeDescription;
+            document.getElementById('storePhone').value = adminData.settings.storePhone;
+            document.getElementById('storeEmail').value = adminData.settings.storeEmail;
+            document.getElementById('storeAddress').value = adminData.settings.storeAddress;
+            document.getElementById('storeHours').value = adminData.settings.storeHours;
+        }
+
+        function saveSettings() {
+            adminData.settings = {
+                storeName: document.getElementById('storeName').value,
+                storeDescription: document.getElementById('storeDescription').value,
+                storePhone: document.getElementById('storePhone').value,
+                storeEmail: document.getElementById('storeEmail').value,
+                storeAddress: document.getElementById('storeAddress').value,
+                storeHours: document.getElementById('storeHours').value
+            };
+            
+            // تغيير كلمة المرور إذا تم إدخال واحدة
+            const newPassword = document.getElementById('adminPassword').value;
+            if (newPassword.trim() !== '') {
+                adminData.password = newPassword;
+            }
+            
+            localStorage.setItem('hakim_settings', JSON.stringify(adminData.settings));
+            
+            showAlert('تم حفظ الإعدادات بنجاح!', 'success');
+            document.getElementById('adminPassword').value = '';
+        }
+
+        function showAlert(message, type) {
+            // إنشاء عنصر التنبيه
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 5px;
+                color: white;
+                font-weight: 600;
+                z-index: 9999;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                animation: slideIn 0.3s ease;
+            `;
+            
+            if (type === 'success') {
+                alert.style.background = '#2ecc71';
+            } else if (type === 'danger') {
+                alert.style.background = '#e74c3c';
+            } else if (type === 'warning') {
+                alert.style.background = '#f39c12';
+            }
+            
+            document.body.appendChild(alert);
+            
+            // إزالة التنبيه بعد 3 ثوانٍ
+            setTimeout(() => {
+                alert.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(alert);
+                }, 300);
+            }, 3000);
+        }
+
+        // إضافة أنماط CSS للرسوم المتحركة
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
