@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakim Auto Pieces | قطع غيار السيارات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- شريط التنقل العلوي -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-top">
+                <div class="contact-info">
+                    <span><i class="fas fa-phone"></i> 0123456789</span>
+                    <span><i class="fas fa-envelope"></i> info@hakimautopieces.com</span>
+                    <span><i class="fas fa-clock"></i> ٩ ص - ٩ م</span>
+                </div>
+                <div class="auth-links">
+                    <a href="admin.html" class="admin-link"><i class="fas fa-cog"></i> الإدارة</a>
+                </div>
+            </div>
+            
+            <div class="header-main">
+                <div class="logo">
+                    <i class="fas fa-car"></i>
+                    <div>
+                        <h1>Hakim Auto Pieces</h1>
+                        <p>قطع غيار سيارات أصلية</p>
+                    </div>
+                </div>
+                
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> الرئيسية</a></li>
+                        <li class="dropdown">
+                            <a href="#products" class="nav-link">
+                                <i class="fas fa-boxes"></i> المنتجات <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" data-category="engine">محرك ونظام نقل</a></li>
+                                <li><a href="#" data-category="brakes">فرامل وعجلات</a></li>
+                                <li><a href="#" data-category="electrical">كهرباء وإلكترونيات</a></li>
+                                <li><a href="#" data-category="suspension">تعليق وتوجيه</a></li>
+                                <li><a href="#" data-category="body">هيكل وتجهيزات</a></li>
+                                <li><a href="#" data-category="maintenance">صيانة وإصلاح</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#brands" class="nav-link">
+                                <i class="fas fa-tags"></i> الماركات <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" data-brand="toyota">تويوتا</a></li>
+                                <li><a href="#" data-brand="nissan">نيسان</a></li>
+                                <li><a href="#" data-brand="hyundai">هيونداي</a></li>
+                                <li><a href="#" data-brand="kia">كيا</a></li>
+                                <li><a href="#" data-brand="bmw">بي إم دبليو</a></li>
+                                <li><a href="#" data-brand="mercedes">مرسيدس</a></li>
+                                <li><a href="#" data-brand="chevrolet">شفرولية</a></li>
+                                <li><a href="#" data-brand="ford">فورد</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#offers" class="nav-link"><i class="fas fa-percentage"></i> العروض</a></li>
+                        <li><a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> من نحن</a></li>
+                        <li><a href="#contact" class="nav-link"><i class="fas fa-phone-alt"></i> اتصل بنا</a></li>
+                        <li class="cart-icon-container">
+                            <a href="#cart" class="nav-link cart-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="cart-count">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <button class="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- القائمة الجانبية للموبايل -->
+    <div class="mobile-nav-overlay"></div>
+    <nav class="mobile-nav">
+        <div class="mobile-nav-header">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                <h3>Hakim Auto</h3>
+            </div>
+            <button class="close-mobile-nav"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="mobile-nav-list">
+            <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li class="mobile-dropdown">
+                <a href="#" class="has-submenu">
+                    <i class="fas fa-boxes"></i> المنتجات
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+                <ul class="mobile-submenu">
+                    <li><a href="#" data-category="engine">محرك ونظام نقل</a></li>
+                    <li><a href="#" data-category="brakes">فرامل وعجلات</a></li>
+                    <li><a href="#" data-category="electrical">كهرباء وإلكترونيات</a></li>
+                    <li><a href="#" data-category="suspension">تعليق وتوجيه</a></li>
+                    <li><a href="#" data-category="body">هيكل وتجهيزات</a></li>
+                    <li><a href="#" data-category="maintenance">صيانة وإصلاح</a></li>
+                </ul>
+            </li>
+            <li class="mobile-dropdown">
+                <a href="#" class="has-submenu">
+                    <i class="fas fa-tags"></i> الماركات
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+                <ul class="mobile-submenu">
+                    <li><a href="#" data-brand="toyota">تويوتا</a></li>
+                    <li><a href="#" data-brand="nissan">نيسان</a></li>
+                    <li><a href="#" data-brand="hyundai">هيونداي</a></li>
+                    <li><a href="#" data-brand="kia">كيا</a></li>
+                    <li><a href="#" data-brand="bmw">بي إم دبليو</a></li>
+                    <li><a href="#" data-brand="mercedes">مرسيدس</a></li>
+                    <li><a href="#" data-brand="chevrolet">شفرولية</a></li>
+                    <li><a href="#" data-brand="ford">فورد</a></li>
+                </ul>
+            </li>
+            <li><a href="#offers" class="nav-link"><i class="fas fa-percentage"></i> العروض</a></li>
+            <li><a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> من نحن</a></li>
+            <li><a href="#contact" class="nav-link"><i class="fas fa-phone-alt"></i> اتصل بنا</a></li>
+            <li><a href="admin.html" class="admin-link"><i class="fas fa-cog"></i> الدخول للإدارة</a></li>
+        </ul>
+    </nav>
+
+    <!-- المحتوى الرئيسي -->
+    <main>
+        <!-- القسم البطولي -->
+        <section id="home" class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>قطع غيار سيارات أصلية بجودة عالمية</h2>
+                    <p>نوفر جميع قطع غيار السيارات بأسعار تنافسية مع ضمان الجودة والتوصيل السريع</p>
+                    <div class="hero-buttons">
+                        <a href="#products" class="btn btn-primary">تصفح المنتجات</a>
+                        <a href="#offers" class="btn btn-secondary">العروض الخاصة</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800" alt="قطع غيار سيارات">
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم التصنيفات -->
+        <section class="categories-section">
+            <div class="container">
+                <h2 class="section-title">تصنيفات المنتجات</h2>
+                <div class="categories-grid">
+                    <div class="category-card" data-category="engine">
+                        <div class="category-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>محرك ونظام نقل</h3>
+                        <p>قطع محرك، ناقل حركة، دفرنس</p>
+                    </div>
+                    <div class="category-card" data-category="brakes">
+                        <div class="category-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h3>فرامل وعجلات</h3>
+                        <p>بطانات فرامل، أقراص، إطارات</p>
+                    </div>
+                    <div class="category-card" data-category="electrical">
+                        <div class="category-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>كهرباء وإلكترونيات</h3>
+                        <p>بطاريات، أسلاك، شمعات إشعال</p>
+                    </div>
+                    <div class="category-card" data-category="suspension">
+                        <div class="category-icon">
+                            <i class="fas fa-car-side"></i>
+                        </div>
+                        <h3>تعليق وتوجيه</h3>
+                        <p>مساعدات، كراسي، عِصيّ</p>
+                    </div>
+                    <div class="category-card" data-category="body">
+                        <div class="category-icon">
+                            <i class="fas fa-car-crash"></i>
+                        </div>
+                        <h3>هيكل وتجهيزات</h3>
+                        <p>مرايا، زجاج، إكسسوارات</p>
+                    </div>
+                    <div class="category-card" data-category="maintenance">
+                        <div class="category-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>صيانة وإصلاح</h3>
+                        <p>زيوت، فلاتر، مواد تنظيف</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم المنتجات المميزة -->
+        <section id="products" class="products-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">المنتجات الأكثر مبيعاً</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">الكل</button>
+                        <button class="filter-btn" data-filter="featured">مميز</button>
+                        <button class="filter-btn" data-filter="new">جديد</button>
+                        <button class="filter-btn" data-filter="sale">خصم</button>
+                    </div>
+                </div>
+                
+                <div class="products-grid" id="productsContainer">
+                    <!-- المنتجات يتم تحميلها من JavaScript -->
+                </div>
+                
+                <div class="view-all">
+                    <a href="#" class="btn btn-outline" id="loadMore">عرض المزيد</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم الماركات -->
+        <section id="brands" class="brands-section">
+            <div class="container">
+                <h2 class="section-title">الماركات المتوفرة</h2>
+                <div class="brands-grid">
+                    <div class="brand-logo" data-brand="toyota">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Toyota.svg" alt="Toyota">
+                        <span>تويوتا</span>
+                    </div>
+                    <div class="brand-logo" data-brand="nissan">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Nissan_logo.png" alt="Nissan">
+                        <span>نيسان</span>
+                    </div>
+                    <div class="brand-logo" data-brand="hyundai">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Hyundai_Motor_Company_logo.svg" alt="Hyundai">
+                        <span>هيونداي</span>
+                    </div>
+                    <div class="brand-logo" data-brand="kia">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Kia_logo.svg" alt="Kia">
+                        <span>كيا</span>
+                    </div>
+                    <div class="brand-logo" data-brand="bmw">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg" alt="BMW">
+                        <span>بي إم دبليو</span>
+                    </div>
+                    <div class="brand-logo" data-brand="mercedes">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Logo.svg" alt="Mercedes">
+                        <span>مرسيدس</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- سلة المشتريات -->
+        <section id="cart" class="cart-section">
+            <div class="container">
+                <h2 class="section-title">سلة المشتريات</h2>
+                <div class="cart-container">
+                    <div class="cart-items">
+                        <div class="cart-empty" id="cartEmpty">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>سلة المشتريات فارغة</h3>
+                            <p>لم تقم بإضافة أي منتجات إلى السلة بعد</p>
+                            <a href="#products" class="btn btn-primary">تصفح المنتجات</a>
+                        </div>
+                        <div class="cart-items-list" id="cartItemsList" style="display: none;">
+                            <!-- عناصر السلة -->
+                        </div>
+                    </div>
+                    <div class="cart-summary">
+                        <h3>ملخص الطلب</h3>
+                        <div class="summary-item">
+                            <span>عدد القطع:</span>
+                            <span id="totalItems">0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>المجموع:</span>
+                            <span id="subtotal">0.00 ر.س</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>الشحن:</span>
+                            <span id="shipping">25.00 ر.س</span>
+                        </div>
+                        <div class="summary-item total">
+                            <span>الإجمالي:</span>
+                            <span id="totalPrice">25.00 ر.س</span>
+                        </div>
+                        <button class="btn btn-primary btn-block" id="checkoutBtn">إتمام الشراء</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- الفوتر -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <i class="fas fa-car"></i>
+                        <h3>Hakim Auto Pieces</h3>
+                    </div>
+                    <p>متخصصون في توريد قطع غيار السيارات الأصلية بجودة عالية وأسعار تنافسية منذ 2010.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>روابط سريعة</h4>
+                    <ul>
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#products">جميع المنتجات</a></li>
+                        <li><a href="#brands">الماركات</a></li>
+                        <li><a href="#offers">العروض</a></li>
+                        <li><a href="#about">من نحن</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>الفئات</h4>
+                    <ul>
+                        <li><a href="#" data-category="engine">محرك ونظام نقل</a></li>
+                        <li><a href="#" data-category="brakes">فرامل وعجلات</a></li>
+                        <li><a href="#" data-category="electrical">كهرباء وإلكترونيات</a></li>
+                        <li><a href="#" data-category="suspension">تعليق وتوجيه</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>اتصل بنا</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> الرياض، السعودية</li>
+                        <li><i class="fas fa-phone"></i> 0123456789</li>
+                        <li><i class="fas fa-envelope"></i> info@hakimautopieces.com</li>
+                        <li><i class="fas fa-clock"></i> الأحد - الخميس: 9ص - 9م</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Hakim Auto Pieces. جميع الحقوق محفوظة.</p>
+                <p>تصميم متوافق مع منصة بلوجر</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- نافذة تفاصيل المنتج -->
+    <div class="product-modal-overlay"></div>
+    <div class="product-modal" id="productModal">
+        <div class="modal-content">
+            <button class="close-modal"><i class="fas fa-times"></i></button>
+            <div class="modal-body" id="modalBody">
+                <!-- محتوى المنتج -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
